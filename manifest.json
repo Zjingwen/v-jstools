@@ -1,7 +1,8 @@
 {
-  "name": "v_jstools",
-  "version": "0.0.0",
-  "description": "v_jstools js hook工具",
+  "name": "js-tools",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "description": "JS-HOOK工具",
   "permissions": [
     "storage",
     "unlimitedStorage",
@@ -29,6 +30,5 @@
   "options_ui": {
     "open_in_tab": true,
     "page": "options.html"
-  },
-  "manifest_version": 3
+  }
 }

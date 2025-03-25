@@ -3,6 +3,14 @@
 将 v_jstools 调整为支持 manifest v3 可以使用的版本，将不再支持 v2
 再尝试看看能不能继承一个其他功能
 
+# 更新日志
+
+> 未完成
+
+1. 调整至符合 manifest v3 规范，并且所有功能可用
+
+> 已完成
+
 # 感谢大佬的开源
 
 https://github.com/cilame/v_jstools
