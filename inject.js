@@ -1,3 +1,4 @@
+console.log("inject.js");
 function make_v(envs, keys) {
   _envs = envs;
   envs = _envs[0];
@@ -6510,6 +6511,7 @@ add_config_hook(getsets);
 add_config_hook(funcs);
 
 function inject_script(code) {
+  console.log("inject_script", code);
   var script = document.createElement("script");
   script.innerHTML = code;
   script.onload = script.onreadystatechange = function () {
@@ -6544,7 +6546,10 @@ function inject_code() {
 
 var code_hookdom;
 var code_inject;
+
+// TODO 从此处读取本地配置，获取勾选态
 chrome.storage.local.get(hookers, function (result) {
+  console.log(result);
   if (result["config-hook-global"]) {
     var replacer_injectfunc = (injectfunc + "").replace(
       "$domobj_placeholder",
@@ -6579,7 +6584,7 @@ chrome.storage.local.get(hookers, function (result) {
   }
 });
 
-// 临时注释
+// TODO 临时注释
 // chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
 //   if (msg.action.type == 'error'){
 //     inject_script(`console.error(${JSON.stringify(msg.action.info)})`)

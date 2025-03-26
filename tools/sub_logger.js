@@ -5,7 +5,7 @@ function sub_logger(){
     'config-replacer_toggle',
     'config-pac_proxy',
     ], function(e){
-    chrome.browserAction.setBadgeBackgroundColor({color: '#BC1717'});
+    // chrome.browserAction.setBadgeBackgroundColor({color: '#BC1717'});
     var info = ''
     if (e['config-hook-global']){
       info += 'H'
@@ -22,7 +22,6 @@ function sub_logger(){
     }else{
       localStorage.webRedirect_toggle = JSON.stringify(false)
     }
-
-    chrome.browserAction.setBadgeText({text: info});
+    // chrome.browserAction.setBadgeText({text: info});
   })
 }

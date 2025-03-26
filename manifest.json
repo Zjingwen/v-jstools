@@ -21,7 +21,7 @@
   "devtools_page": "devtools.html",
   "content_scripts": [
     {
-      "js": ["inject.js", "./tools/uglify_es.js"],
+      "js": ["inject.js"],
       "matches": ["<all_urls>"]
     }
   ],
