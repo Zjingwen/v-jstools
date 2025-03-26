@@ -6570,9 +6570,9 @@ chrome.storage.local.get(hookers, function (result) {
     //     result
     //   )},window)`)
     // );
-    let code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
-      result
-    )},window)`;
+    // let code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
+    //   result
+    // )},window)`;
     // console.log(code_hookdom);
     _injectScript("lib/code_hookdom.js", result);
 
