@@ -1,3 +1,4 @@
+console.log("inject.js");
 function make_v(envs, keys) {
   _envs = envs;
   envs = _envs[0];
@@ -6510,6 +6511,7 @@ add_config_hook(getsets);
 add_config_hook(funcs);
 
 function inject_script(code) {
+  console.log("inject_script", code);
   var script = document.createElement("script");
   script.innerHTML = code;
   script.onload = script.onreadystatechange = function () {
@@ -6544,7 +6546,10 @@ function inject_code() {
 
 var code_hookdom;
 var code_inject;
+
+// TODO 从此处读取本地配置，获取勾选态
 chrome.storage.local.get(hookers, function (result) {
+  console.log(result);
   if (result["config-hook-global"]) {
     var replacer_injectfunc = (injectfunc + "").replace(
       "$domobj_placeholder",
@@ -6558,12 +6563,19 @@ chrome.storage.local.get(hookers, function (result) {
       result["config-hook-cookie-match"] || ""
     ).trim();
     var log_toggle = result["config-hook-log-toggle"];
-    delete result["config-hook-log-toggle"]; // 分两次注入是因为要保证第一次注入的代码是不变的，这样可以直接在代码处打断点
-    inject_script(
-      (code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
-        result
-      )},window)`)
-    );
+    delete result["config-hook-log-toggle"]; // TODO 分两次注入是因为要保证第一次注入的代码是不变的，这样可以直接在代码处打断点
+    // TODO 注入到页面上
+    // inject_script(
+    //   (code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
+    //     result
+    //   )},window)`)
+    // );
+    // let code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
+    //   result
+    // )},window)`;
+    // console.log(code_hookdom);
+    _injectScript("lib/code_hookdom.js", result);
+
     if (!log_toggle) {
       inject_script(`globalConfig.logtogglefunc({key:'w',altKey:true})`);
     }
@@ -6579,7 +6591,21 @@ chrome.storage.local.get(hookers, function (result) {
   }
 });
 
-// 临时注释
+function _injectScript(src, result) {
+  const el1 = document.createElement("script");
+  el1.id = "v_jstools_reslut";
+  el1.type = "application/json";
+  el1.textContent = JSON.stringify(result);
+  (document.head || document.documentElement).append(el1);
+
+  const el2 = document.createElement("script");
+  el2.src = chrome.runtime.getURL(src);
+  el2.type = "module";
+  el2.onload = () => el2.remove();
+  (document.head || document.documentElement).append(el2);
+}
+
+// TODO 临时注释
 // chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
 //   if (msg.action.type == 'error'){
 //     inject_script(`console.error(${JSON.stringify(msg.action.info)})`)

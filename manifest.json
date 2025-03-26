@@ -10,20 +10,27 @@
     "tabs",
     "debugger",
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "scripting"
   ],
+  "host_permissions": ["http://*/*", "https://*/*"],
   "action": {
     "default_popup": "popup.html"
   },
   "background": {
     "service_worker": "background.js"
   },
+  "devtools_page": "devtools.html",
   "content_scripts": [
     {
-      "matches": ["file:///*", "http://*/*", "https://*/*"],
-      "run_at": "document_start",
       "js": ["inject.js"],
-      "all_frames": true
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["*"],
+      "matches": ["<all_urls>"]
     }
   ],
   "options_page": "options.html",

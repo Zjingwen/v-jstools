@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>popup</title>
 
   <style type="text/css">
     .switch {
@@ -14,7 +15,11 @@
       height: 34px;
       transform: scale(.5, .5);
     }
-    .switch input {display:none;}
+
+    .switch input {
+      display: none;
+    }
+
     .slider {
       position: absolute;
       cursor: pointer;
@@ -27,6 +32,7 @@
       transition: .05s;
       border-radius: 34px;
     }
+
     .slider:before {
       position: absolute;
       content: "";
@@ -39,13 +45,16 @@
       transition: .05s;
       border-radius: 50%;
     }
-    input:checked + .slider {
+
+    input:checked+.slider {
       background-color: #2196F3;
     }
-    input:focus + .slider {
+
+    input:focus+.slider {
       box-shadow: 0 0 1px #2196F3;
     }
-    input:checked + .slider:before {
+
+    input:checked+.slider:before {
       -webkit-transform: translateX(26px);
       -ms-transform: translateX(26px);
       transform: translateX(26px);
@@ -66,12 +75,14 @@
       cursor: pointer;
       margin: 5px;
     }
+
     .button span {
       cursor: pointer;
       display: inline-block;
       position: relative;
       transition: 0.5s;
     }
+
     .button span:after {
       content: '»';
       position: absolute;
@@ -80,9 +91,11 @@
       right: -20px;
       transition: 0.5s;
     }
+
     .button:hover span {
       padding-right: 25px;
     }
+
     .button:hover span:after {
       opacity: 1;
       right: 0;
@@ -93,7 +106,7 @@
       padding: 10px;
       font-size: 15px;
       cursor: pointer;
-      text-align: center;   
+      text-align: center;
       text-decoration: none;
       outline: none;
       width: 160px;
@@ -106,35 +119,46 @@
       box-shadow: 0 3px #999;
     }
 
-    .button2:hover {background-color: #b62f04}
+    .button2:hover {
+      background-color: #b62f04
+    }
 
     .button2:active {
       background-color: #3e8e41;
       box-shadow: 0 5px #666;
       transform: translateY(4px);
     }
-    </style>
-
+  </style>
+  <script src="tools/_config_hook_list.js"></script>
+  <script src="tools/common.js"></script>
+  <script src="tools/sub_logger.js"></script>
+  <script src="tools/mod_code_getter.js"></script>
 </head>
+
 <body style="width: 180px;">
   <label class="switch">
-    <input type="checkbox" data-key="config-hook-global"><div class="slider"></div>
+    <input type="checkbox" data-key="config-hook-global">
+    <div class="slider"></div>
   </label>
   <div style="float: right; padding: 10px">是否挂钩总开关</div>
   <label class="switch">
-    <input type="checkbox" data-key="config-hook-log-toggle"><div class="slider"></div>
+    <input type="checkbox" data-key="config-hook-log-toggle">
+    <div class="slider"></div>
   </label>
   <div style="float: right; padding: 10px">开关输出日志</div>
   <label class="switch">
-    <input type="checkbox" data-key="config-myinject_toggle"><div class="slider"></div>
+    <input type="checkbox" data-key="config-myinject_toggle">
+    <div class="slider"></div>
   </label>
   <div style="float: right; padding: 10px">是否注入代码</div>
   <label class="switch">
-    <input type="checkbox" data-key="config-replacer_toggle"><div class="slider"></div>
+    <input type="checkbox" data-key="config-replacer_toggle">
+    <div class="slider"></div>
   </label>
   <div style="float: right; padding: 10px">是否替换返回值</div>
   <label class="switch">
-    <input type="checkbox" data-key="config-pac_proxy"><div class="slider"></div>
+    <input type="checkbox" data-key="config-pac_proxy">
+    <div class="slider"></div>
   </label>
   <div style="float: right; padding: 10px">是否开启pac代理</div>
   <!-- <label class="switch">
@@ -149,24 +173,8 @@
     <button id="create_high_env" class="button2" style="vertical-align:middle"><span>生成高级环境</span></button>
     <!-- <button id="logtoggle" class="button2" style="vertical-align:middle"><span>开关输出日志</span></button> -->
     <!-- <button id="clone_page" class="button2" style="vertical-align:middle"><span>拷贝当前页面</span></button> -->
-    <hr>
-    <button id="update_page" class="button2" style="vertical-align:middle">
-      <span>ver: 1.1</span><br>
-      <span>打开工具更新地址</span>
-    </button>
-    <button id="wx_zsxq_page" class="button2" style="vertical-align:middle">
-      <span>知识星球</span>
-    </button>
-    <button id="qq_group_page" class="button2" style="vertical-align:middle">
-      <span>点击加入QQ群：</span><br>
-      <span>797747562</span>
-    </button>
-    <!-- <div style="padding: 10px">QQ群: 797747562</div> -->
   </div>
-  <script src="./tools/_config_hook_list.js"></script>
-  <script src="./tools/common.js"></script>
-  <script src="./tools/sub_logger.js"></script>
-  <script src="./tools/mod_code_getter.js"></script>
   <script src="popup.js"></script>
 </body>
+
 </html>
