@@ -10,8 +10,10 @@
     "tabs",
     "debugger",
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "scripting"
   ],
+  "host_permissions": ["http://*/*", "https://*/*"],
   "action": {
     "default_popup": "popup.html"
   },
@@ -22,6 +24,12 @@
   "content_scripts": [
     {
       "js": ["inject.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["*"],
       "matches": ["<all_urls>"]
     }
   ],

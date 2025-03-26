@@ -6564,11 +6564,18 @@ chrome.storage.local.get(hookers, function (result) {
     ).trim();
     var log_toggle = result["config-hook-log-toggle"];
     delete result["config-hook-log-toggle"]; // 分两次注入是因为要保证第一次注入的代码是不变的，这样可以直接在代码处打断点
-    inject_script(
-      (code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
-        result
-      )},window)`)
-    );
+    // 注入到页面上
+    // inject_script(
+    //   (code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
+    //     result
+    //   )},window)`)
+    // );
+    // let code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
+    //   result
+    // )},window)`;
+    // console.log("code_hookdom", code_hookdom);
+    _injectScript(`lib/code_hookdom.js`);
+
     if (!log_toggle) {
       inject_script(`globalConfig.logtogglefunc({key:'w',altKey:true})`);
     }
@@ -6583,6 +6590,15 @@ chrome.storage.local.get(hookers, function (result) {
     );
   }
 });
+
+function _injectScript(src) {
+  const el = document.createElement("script");
+  el.src = chrome.runtime.getURL(src);
+  el.type = "module";
+  el.onload = () => el.remove();
+  console.log("inject_script", el);
+  (document.head || document.documentElement).append(el);
+}
 
 // TODO 临时注释
 // chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
