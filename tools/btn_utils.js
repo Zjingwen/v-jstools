@@ -171,7 +171,8 @@ var envb = document.getElementById("debug_hook");
 envb.addEventListener("dblclick", function (e) {
   // 读取inject.js文件
   get_file("inject.js", function (e) {
-    console.log("debug_hook", e);
+    // parser 来自 babel_asttool.js 文件
+    // 查找inject.js 中需要的代码
     var ast = parser.parse(e);
     var fdecls = [];
     for (var i = 0; i < ast.program.body.length; i++) {
@@ -182,6 +183,7 @@ envb.addEventListener("dblclick", function (e) {
       }
     }
     ast.program.body = fdecls;
+    // 获取到目标代码之后进行拼接
     var code = generator(ast).code;
     code =
       code +
@@ -200,24 +202,45 @@ envb.addEventListener("dblclick", function (e) {
       my_magic_obj['inject_code'] = inject_code
     })
     `;
-    new Function("my_magic_obj", code)(
-      new Proxy(
-        {},
-        {
-          set(a, b, c) {
-            a[b] = c;
-            if (b == "inject_code") {
-              attach_all(c);
-            }
-            return true;
-          },
-        }
-      )
+    // 执行代码添加代理
+    // 异常报错：EvalError: Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive: "script-src 'self'".
+    console.log("debug_hook_code", code);
+    console.log("debug_hook_code", window.my_magic_obj);
+    // new Function("console.log(123)");
+    // new Function("my_magic_obj", code)(
+    //   new Proxy(
+    //     {},
+    //     {
+    //       set(a, b, c) {
+    //         a[b] = c;
+    //         if (b == "inject_code") {
+    //           // 检测到对象名为inject_code，进行hook
+    //           attach_all(c);
+    //         }
+    //         return true;
+    //       },
+    //     }
+    //   )
+    // );
+    my_magic_obj();
+    new Proxy(
+      {},
+      {
+        set(a, b, c) {
+          a[b] = c;
+          if (b == "inject_code") {
+            // 检测到对象名为inject_code，进行hook
+            attach_all(c);
+          }
+          return true;
+        },
+      }
     );
     function attach_all(code) {
       debug_tab = true;
       chrome.tabs.query({}, function (tabs) {
         for (var i = 0; i < tabs.length; i++) {
+          // 检测tabs的url，如果不是chrome的url，则跳过
           if (tabs[i].url.indexOf("chrome") == 0) {
             continue;
           }
@@ -249,5 +272,6 @@ envb.addEventListener("dblclick", function (e) {
         }
       }
     }
+    alert("debug_hook 添加成功");
   });
 });

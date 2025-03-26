@@ -21,7 +21,7 @@
   "devtools_page": "devtools.html",
   "content_scripts": [
     {
-      "js": ["inject.js"],
+      "js": ["inject.js", "./tools/uglify_es.js"],
       "matches": ["<all_urls>"]
     }
   ],
@@ -29,8 +29,5 @@
   "options_ui": {
     "open_in_tab": true,
     "page": "options.html"
-  },
-  "content_security_policy": {
-    "extention_pages": "script-src 'self' 'unsafe-eval'"
   }
 }

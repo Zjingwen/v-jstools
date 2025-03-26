@@ -5,31 +5,6 @@ var parser = Babel.packages.parser
 var template = Babel.packages.template.default
 var traverse = Babel.packages.traverse.default
 var t = Babel.packages.types
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function transform_jscode_to_es5(jscode, config){
     function test() {
         return {

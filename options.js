@@ -20,25 +20,6 @@ window.onload = function() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// getsets_0
-// funcs_0
-// getsets_1
-// funcs_1
-
 function _mk_html(input, clsname, index){
   var div = document.getElementById(clsname)
   div.innerHTML += `
@@ -212,8 +193,6 @@ cookie_match.addEventListener("click", function(){
     [show_now.dataset.key]: show_now.value
   })
 })
-
-
 
 function clear_mode(func, is_comment){
   var code = /\{([\w\W]*)\}/.exec(func+'')[1]

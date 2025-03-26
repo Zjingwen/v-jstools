@@ -4,11 +4,11 @@ function errorHandler(e) {
 }
 
 function get_file(filename, callback, errcallback) {
-  // https://developer.chrome.com/docs/extensions/reference/api/runtime?hl=zh-cn#method-getPackageDirectoryEntry
-  chrome.runtime.getPackageDirectoryEntry(function (root) {
+  function handler(root) {
+    const options = {};
     root.getFile(
       filename,
-      {},
+      options,
       function (fileEntry) {
         fileEntry.file(function (file) {
           var reader = new FileReader();
@@ -21,7 +21,9 @@ function get_file(filename, callback, errcallback) {
       },
       errcallback || errorHandler
     );
-  });
+  }
+  // https://developer.chrome.com/docs/extensions/reference/api/runtime?hl=zh-cn#method-getPackageDirectoryEntry
+  chrome.runtime.getPackageDirectoryEntry(handler);
 }
 
 var test_get_model_code = document.getElementById("test_get_model_code");
