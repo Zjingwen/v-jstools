@@ -181,4 +181,5 @@ interface Imanifest {
     extension_ids: string[],
     use_dynamic_url: boolean
   }[],
+  options_ui?: any
 }

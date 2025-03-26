@@ -56,9 +56,9 @@ export default defineConfig({
       },
       input: {
         popup: resolve('src/popup/index.html'),
-        options: resolve('src/options/index.html'),
-        devtools: resolve('src/devtools/index.html'),
-        panel: resolve('src/panel/index.html'),
+        // options: resolve('src/options/index.html'),
+        // devtools: resolve('src/devtools/index.html'),
+        // panel: resolve('src/panel/index.html'),
       },
     }
   },

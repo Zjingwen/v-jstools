@@ -1,9 +1,7 @@
 import { PluginOption, build } from 'vite';
 import chokidar from 'chokidar';
 import { resolve } from 'path';
-import react from '@vitejs/plugin-react';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
-import replace from 'vite-plugin-filter-replace';
 
 const outDir = resolve(__dirname, '../dist');
 let gMode: string = undefined;
@@ -17,18 +15,7 @@ let gAlias: Object = undefined;
 async function handleBuild(key, value, alias) {
   await build({
     plugins: [
-      react(),
-      replace([
-        {
-          filter: ['node_modules/antd/dist/reset.css'],
-          replace() {
-            // 去除影响全局的css
-            return "";
-          },
-        }
-      ]),
-      cssInjectedByJsPlugin({
-      }),
+      cssInjectedByJsPlugin(),
     ],
     resolve: {
       alias,
