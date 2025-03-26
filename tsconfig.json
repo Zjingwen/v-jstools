@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "useDefineForClassFields": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": [
+      "node",
+      "chrome"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./types/*",
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@utils": [
+        "utils.js"
+      ],
+      "@submodule/*": [
+        "submodule/*"
+      ],
+      "@popup/*": [
+        "src/popup/*"
+      ]
+    },
+  },
+  "include": [
+    "src",
+    "utils.js"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

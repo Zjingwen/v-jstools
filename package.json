@@ -1,0 +1,27 @@
+{
+  "name": "v-jstools",
+  "description": "将 v_jstools 调整为支持 manifest v3 可以使用的版本，将不再支持 v2 再尝试看看能不能继承一个其他功能 仅供学习参考",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zjingwen/v-jstools-main.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zjingwen/v-jstools-main/issues"
+  },
+  "homepage": "https://github.com/Zjingwen/v-jstools-main#readme",
+  "dependencies": {
+    "@types/chrome": "^0.0.312",
+    "@types/node": "^22.13.13",
+    "chokidar": "^4.0.3",
+    "vite": "^6.2.3",
+    "vite-plugin-css-injected-by-js": "^3.5.2"
+  }
+}
