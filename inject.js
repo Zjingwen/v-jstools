@@ -6573,8 +6573,8 @@ chrome.storage.local.get(hookers, function (result) {
     let code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
       result
     )},window)`;
-    console.log(code_hookdom);
-    // _injectScript(`lib/code_hookdom.js`);
+    // console.log(code_hookdom);
+    _injectScript("lib/code_hookdom.js", result);
 
     if (!log_toggle) {
       inject_script(`globalConfig.logtogglefunc({key:'w',altKey:true})`);
@@ -6591,13 +6591,18 @@ chrome.storage.local.get(hookers, function (result) {
   }
 });
 
-function _injectScript(src) {
-  const el = document.createElement("script");
-  el.src = chrome.runtime.getURL(src);
-  el.type = "module";
-  el.onload = () => el.remove();
-  console.log("inject_script", el);
-  (document.head || document.documentElement).append(el);
+function _injectScript(src, result) {
+  const el1 = document.createElement("script");
+  el1.id = "v_jstools_reslut";
+  el1.type = "application/json";
+  el1.textContent = JSON.stringify(result);
+  (document.head || document.documentElement).append(el1);
+
+  const el2 = document.createElement("script");
+  el2.src = chrome.runtime.getURL(src);
+  el2.type = "module";
+  el2.onload = () => el2.remove();
+  (document.head || document.documentElement).append(el2);
 }
 
 // TODO 临时注释
