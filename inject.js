@@ -6563,18 +6563,18 @@ chrome.storage.local.get(hookers, function (result) {
       result["config-hook-cookie-match"] || ""
     ).trim();
     var log_toggle = result["config-hook-log-toggle"];
-    delete result["config-hook-log-toggle"]; // 分两次注入是因为要保证第一次注入的代码是不变的，这样可以直接在代码处打断点
-    // 注入到页面上
+    delete result["config-hook-log-toggle"]; // TODO 分两次注入是因为要保证第一次注入的代码是不变的，这样可以直接在代码处打断点
+    // TODO 注入到页面上
     // inject_script(
     //   (code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
     //     result
     //   )},window)`)
     // );
-    // let code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
-    //   result
-    // )},window)`;
-    // console.log("code_hookdom", code_hookdom);
-    _injectScript(`lib/code_hookdom.js`);
+    let code_hookdom = `(${replacer_injectfunc})(${JSON.stringify(
+      result
+    )},window)`;
+    console.log(code_hookdom);
+    // _injectScript(`lib/code_hookdom.js`);
 
     if (!log_toggle) {
       inject_script(`globalConfig.logtogglefunc({key:'w',altKey:true})`);
