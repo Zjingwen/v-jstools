@@ -2,8 +2,8 @@
 const manifest: any = {
   "name": "js-tools",
   "version": "0.0.1",
-  "manifest_version": 3,
   "description": "JS-HOOK工具",
+  "manifest_version": 3,
   "permissions": [
     "storage",
     "unlimitedStorage",
@@ -14,14 +14,19 @@ const manifest: any = {
     "contextMenus",
     "scripting"
   ],
-  "host_permissions": ["http://*/*", "https://*/*"],
-  "action": {
-    "default_popup": "popup.html"
-  },
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "serviceWorker.js",
+    "type": "module"
   },
-  "devtools_page": "src/devtools/devtools.html",
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "options_page": "src/options/index.html",
+  // "devtools_page": "src/devtools/index.html",
   "content_scripts": [
     {
       "js": [
@@ -30,16 +35,16 @@ const manifest: any = {
       "matches": ["<all_urls>"]
     }
   ],
+  "default_locale": "zh_CN",
   "web_accessible_resources": [
     {
       "resources": ["*"],
       "matches": ["<all_urls>"]
     }
   ],
-  "options_page": "options.html",
   "options_ui": {
     "open_in_tab": true,
-    "page": "options.html"
+    "page": "src/options/index.html"
   }
 }
 export default manifest

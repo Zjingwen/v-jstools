@@ -14,14 +14,15 @@ export default defineConfig({
     cssInjectedByJsPlugin({
       jsAssetsFilterFunction: function (outputChunk: { fileName: string }) {
         // 定义常量存储文件名
-        const JS_ASSETS_FILENAMES = ["popup.js", "options.js", "devtools.js", "panel.js"];
+        // const JS_ASSETS_FILENAMES = ["popup.js", "options.js", "devtools.js", "panel.js"];
+        const JS_ASSETS_FILENAMES = ["popup.js", "options.js"];
         return JS_ASSETS_FILENAMES.includes(outputChunk.fileName);
       },
     }),
     createManifest(manifest),
     buildScript({
-      // serviceWorker: resolve(__dirname, 'src/serviceWorker/index.js'),
-      // contentScripts: resolve(__dirname, 'src/contentScripts/index.js'),
+      serviceWorker: resolve(__dirname, 'src/serviceWorker/index.js'),
+      contentScripts: resolve(__dirname, 'src/contentScripts/index.js'),
       // injectedScripts: resolve(__dirname, 'src/injectedScripts/index.js'),
     }),
   ],
@@ -56,7 +57,7 @@ export default defineConfig({
       },
       input: {
         popup: resolve('src/popup/index.html'),
-        // options: resolve('src/options/index.html'),
+        options: resolve('src/options/index.html'),
         // devtools: resolve('src/devtools/index.html'),
         // panel: resolve('src/panel/index.html'),
       },
