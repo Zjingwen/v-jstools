@@ -11,3 +11,9 @@
 # 感谢大佬的开源
 
 https://github.com/cilame/v_jstools
+
+var generator = Babel.packages.generator.default
+var parser = Babel.packages.parser
+var template = Babel.packages.template.default
+var traverse = Babel.packages.traverse.default
+var t = Babel.packages.types

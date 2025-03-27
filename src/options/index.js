@@ -1,4 +1,14 @@
 console.log("options.js");
+import $ from "jquery";
+import {
+  getsets_0,
+  funcs_0,
+  getsets_1,
+  funcs_1,
+} from "../../src/tools/config_hook_list.module.js";
+import set_my_proxy from "../../src/tools/set_my_proxy.js";
+import sub_logger from "../../src/tools/sub_logger.module.js";
+
 window.onload = function () {
   var nav = document.getElementById("nav");
   var oNav = nav.getElementsByTagName("button");
