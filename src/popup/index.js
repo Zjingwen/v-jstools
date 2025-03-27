@@ -56,7 +56,7 @@ document.getElementById("showoptions").addEventListener("click", function (e) {
   }
   closePopup();
   chrome.tabs.create({
-    url: chrome.runtime.getURL("options.html"),
+    url: chrome.runtime.getURL("src/options/index.html"),
   });
 });
 
