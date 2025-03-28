@@ -28,7 +28,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      // '@src': '/src',
+      '@src': '/src',
       // '@utils': '/utils.js',
       // '@font': '/font',
       // '@submodule': "/submodule",

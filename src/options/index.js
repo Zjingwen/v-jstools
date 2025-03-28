@@ -5,43 +5,36 @@ import {
   funcs_0,
   getsets_1,
   funcs_1,
-} from "../../src/tools/config_hook_list.module.js";
-import set_my_proxy from "../../src/tools/set_my_proxy.js";
-import sub_logger from "../../src/tools/sub_logger.module.js";
+} from "@src/tools/config_hook_list.module.js";
+import set_my_proxy from "@src/tools/set_my_proxy.js";
+import sub_logger from "@src/tools/sub_logger.module.js";
 
+// 抓取nav下的button、container下的tab节点
 window.onload = function () {
-  var nav = document.getElementById("nav");
-  var oNav = nav.getElementsByTagName("button");
-  var container = document.getElementById("container");
-  var oDiv = container.getElementsByClassName("tab");
-  for (var i = 0; i < oNav.length; i++) {
-    oNav[i].index = i;
-    oNav[i].onclick = function () {
-      for (var i = 0; i < oNav.length; i++) {
-        oNav[i].className = "";
-        oDiv[i].style.display = "none";
-      }
-      this.className = "act";
-      oDiv[this.index].style.display = "block";
-    };
-    for (var m = 1; m < oNav.length; m++) {
-      oNav[m].className = "";
-      oDiv[m].style.display = "none";
-    }
-  }
+  const button = $("#nav button");
+  const tab = $("#container .tab");
+
+  button.click(function () {
+    button.removeClass("act");
+    $(this).addClass("act");
+    const key = $(this).data("key");
+    tab.hide();
+    tab.eq(key).show();
+  });
 };
 
+// 渲染html节点
 function _mk_html(input, clsname, index) {
-  var div = document.getElementById(clsname);
+  let div = document.getElementById(clsname);
   div.innerHTML += `
   <label ><input class="${clsname}-e0" type="checkbox" id="${clsname}" data-key="config-hook-all-${clsname}" vilame="${index}">${clsname} 全选/全不选<br /> </label>
   `;
-  var htmls = [];
-  var keys = [];
-  for (var i = 0; i < input.length; i++) {
-    var kv = input[i];
-    var k = kv[0];
-    var v = kv[1];
+  let htmls = [];
+  let keys = [];
+  for (let i = 0; i < input.length; i++) {
+    let kv = input[i];
+    let k = kv[0];
+    let v = kv[1];
     if (keys.indexOf(k) == -1) {
       keys.push(k);
       htmls.push(`<label style="margin-left: 20px" >${k}<br /> </label>`);
@@ -58,7 +51,7 @@ _mk_html(funcs_0, "funcs_0", 0);
 _mk_html(getsets_1, "getsets_1", 1);
 _mk_html(funcs_1, "funcs_1", 1);
 
-// 事件监听
+// 监听input节点
 document.querySelectorAll("input").forEach(function (v) {
   if (!v.dataset.key) return;
   chrome.storage.local.get([v.dataset.key], function (result) {
@@ -134,7 +127,6 @@ chrome.storage.local.get([fetch_hook.dataset.key], function (result) {
   fetch_hook.value = result[fetch_hook.dataset.key] || "";
 });
 function change_fetch_hook(v) {
-  console.log("change_fetch_hook");
   chrome.storage.local.set({
     [v.target.dataset.key]: v.target.value,
   });
@@ -147,7 +139,6 @@ chrome.storage.local.get([request_hook.dataset.key], function (result) {
   request_hook.value = result[request_hook.dataset.key] || "";
 });
 function change_request_hook(v) {
-  console.log("change_request_hook");
   chrome.storage.local.set({
     [v.target.dataset.key]: v.target.value,
   });
@@ -339,7 +330,6 @@ chrome.storage.local.get([proxy_config.dataset.key], function (result) {
   proxy_config.value = result[proxy_config.dataset.key] || "";
 });
 function change_proxy_config(v) {
-  console.log("change_proxy_config");
   chrome.storage.local.set({
     [v.target.dataset.key]: v.target.value,
   });
