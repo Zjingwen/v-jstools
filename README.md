@@ -6,7 +6,7 @@
 # 更新日志
 
 - 添加 vite 构建
-- ~~调整至符合 manifest v3 规范，基础功能可用，暂时了 uglify_es、aline_js~~
+- ~~调整至符合 manifest v3 规范，基础功能可用，暂停了 uglify_es、aline_js~~
 
 # 感谢大佬的开源
 
