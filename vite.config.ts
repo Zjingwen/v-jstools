@@ -29,6 +29,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@src': '/src',
+      "@public": "/public"
       // '@utils': '/utils.js',
       // '@font': '/font',
       // '@submodule': "/submodule",

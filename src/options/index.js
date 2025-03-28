@@ -1,4 +1,6 @@
 console.log("options.js");
+import "./App.jsx";
+
 import $ from "jquery";
 import {
   getsets_0,
@@ -13,7 +15,8 @@ import sub_logger from "@src/tools/sub_logger.module.js";
 window.onload = function () {
   const button = $("#nav button");
   const tab = $("#container .tab");
-
+  tab.hide();
+  tab.eq(0).show();
   button.click(function () {
     button.removeClass("act");
     $(this).addClass("act");

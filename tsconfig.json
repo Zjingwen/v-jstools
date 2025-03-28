@@ -31,19 +31,14 @@
       "@src/*": [
         "src/*"
       ],
-      "@utils": [
-        "utils.js"
+      "@public/*": [
+        "public/*"
       ],
-      "@submodule/*": [
-        "submodule/*"
-      ],
-      "@popup/*": [
-        "src/popup/*"
-      ]
     },
   },
   "include": [
     "src",
+    "src/**/*",
     "utils.js"
   ],
   "references": [
