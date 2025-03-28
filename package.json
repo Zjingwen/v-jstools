@@ -29,6 +29,7 @@
     "babel-plugin-import": "^1.13.8",
     "chokidar": "^4.0.3",
     "jquery": "^3.7.1",
+    "react": "^19.0.0",
     "typescript": "^5.8.2",
     "vite": "5.4.11",
     "vite-plugin-css-injected-by-js": "^3.5.2"
