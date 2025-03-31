@@ -57,6 +57,7 @@ _mk_html(funcs_1, "funcs_1", 1);
 // 监听input节点
 document.querySelectorAll("input").forEach(function (v) {
   if (!v.dataset.key) return;
+  // 取出storage值，进行初次赋值
   chrome.storage.local.get([v.dataset.key], function (result) {
     if (v.type == "checkbox") {
       v.checked = result[v.dataset.key];
@@ -65,12 +66,14 @@ document.querySelectorAll("input").forEach(function (v) {
       v.value = result[v.dataset.key] || "";
     }
   });
+  // 坚挺change变化，如果type是checkbox，则直接赋值，如果是text，则赋值给value
   v.addEventListener("change", function (e) {
     if (v.type == "checkbox") {
       console.log(e.target.dataset.key, e.target.checked);
       chrome.storage.local.set({
         [e.target.dataset.key]: e.target.checked,
       });
+      // 如果key是config-pac_proxy，则设置代理
       if (e.target.dataset.key == "config-pac_proxy") {
         if (e.target.checked) {
           chrome.storage.local.get(["config-proxy_config"], function (res) {
@@ -82,8 +85,10 @@ document.querySelectorAll("input").forEach(function (v) {
           set_my_proxy();
         }
       }
+      // 未知作用，貌似是进行一些localStorage传值
       sub_logger();
     }
+    // 如果type是text或者password的话直接将value赋值给key
     if (v.type == "text" || v.type == "password") {
       chrome.storage.local.set({
         [e.target.dataset.key]: e.target.value,

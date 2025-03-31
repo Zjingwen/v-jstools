@@ -11,6 +11,7 @@ function LayouFrame(props) {
         {routers.map((v) => (<Button key={v.path}><Link to={v.path}>{v.name}</Link></Button>))}
       </Space>
       <div>{props.children}</div>
+      <hr />
     </>
   );
 };

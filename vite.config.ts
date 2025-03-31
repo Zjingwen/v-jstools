@@ -32,8 +32,8 @@ export default defineConfig({
     alias: {
       '@src': '/src',
       "@public": "/public",
+      '@utils': '/utils.js',
       // "@options": "/src/options",
-      // '@utils': '/utils.js',
       // '@font': '/font',
       // '@submodule': "/submodule",
       // '@popup': '/src/popup',
