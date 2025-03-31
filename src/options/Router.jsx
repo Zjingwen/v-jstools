@@ -1,12 +1,11 @@
-import React from 'react';
-import WebApiHook from '@src/options/page/WebApiHook';
+import WebHook from '@src/options/page/WebHook';
 import CodeImport from '@src/options/page/CodeImport';
 import ChangeProxy from '@src/options/page/ChangeProxy';
 
 export default [{
   path: "/",
-  name: "web api hook",
-  element: <WebApiHook />,
+  name: "web hook",
+  element: <WebHook />,
   query: {},
 },
 {

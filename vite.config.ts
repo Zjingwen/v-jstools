@@ -1,5 +1,6 @@
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
@@ -11,6 +12,7 @@ import manifest from './src/manifest';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    react(),
     cssInjectedByJsPlugin({
       jsAssetsFilterFunction: function (outputChunk: { fileName: string }) {
         // 定义常量存储文件名
@@ -29,7 +31,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@src': '/src',
-      "@public": "/public"
+      "@public": "/public",
+      // "@options": "/src/options",
       // '@utils': '/utils.js',
       // '@font': '/font',
       // '@submodule': "/submodule",

@@ -1,22 +1,16 @@
-import React from 'react';
-import { createHashRouter, RouterProvider, Link } from 'react-router-dom';
 import ReactDOM from "react-dom/client";
-import "@public/lib/reset.css";
-import routers from "./Router";
+import { createHashRouter, RouterProvider, Link } from 'react-router-dom';
 import { Button, Space } from '@douyinfe/semi-ui';
+import "@public/lib/reset.css";
+import routers from "@src/options/Router.jsx";
 
 function LayouFrame(props) {
   return (
     <>
       <Space>
-        <Button><Link to="/">web api hook</Link></Button>
-        <Button><Link to="/about">注入代码</Link></Button>
-        <Button><Link to="/contact">修改代理/返回值</Link></Button>
+        {routers.map((v) => (<Button key={v.path}><Link to={v.path}>{v.name}</Link></Button>))}
       </Space>
-      <br />
-      <div>
-        {props.children}
-      </div>
+      <div>{props.children}</div>
     </>
   );
 };
@@ -29,7 +23,8 @@ const router = createHashRouter(routers.map(v => {
     element: <LayouFrame>{element}</LayouFrame>
   }
 }));
-const el = document.getElementById('app');
-const root = ReactDOM.createRoot(el);
+const root = ReactDOM.createRoot(
+  document.getElementById('app')
+);
 
 root.render(<RouterProvider router={router} />);

@@ -1,4 +1,5 @@
 import { PluginOption, build } from 'vite';
+import react from '@vitejs/plugin-react';
 import chokidar from 'chokidar';
 import { resolve } from 'path';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
@@ -15,6 +16,7 @@ let gAlias: Object = undefined;
 async function handleBuild(key, value, alias) {
   await build({
     plugins: [
+      react(),
       cssInjectedByJsPlugin(),
     ],
     resolve: {
