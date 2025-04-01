@@ -1,44 +1,49 @@
-import { useState, useEffect } from "react";
-import { Form } from '@douyinfe/semi-ui';
-import { chromeStorageGet, isEmptyObject } from "@utils";
+import { Button, Form, useFormApi } from '@douyinfe/semi-ui';
+import { chromeStorageGet, chromeStorageSet, isEmptyObject } from "@utils";
 
-const { Checkbox } = Form;
-export default () => {
-  const initConfig = {
-    "config-hook-global": "是否挂钩总开关",
-    "config-hook-Function": "hook-Function",
-    "config-hook-eval": "hook-eval（eval函数会记录上下文，若 eval 用到封闭的上下文参数可能报错）",
-    "config-hook-remove-dyn-debugger": `remove-dyn-debugger(need selected "hook-Function" or "hook-eval")`,
-    "config-hook-settimeout": "hook-settimeout",
-    "config-hook-setinterval": "hook-setinterval",
+const { Checkbox, Input } = Form;
+
+function TimeFreezeNumber() {
+  const formApi = useFormApi();
+  const change = () => {
+    formApi.setValue('config-hook-time-freeze-number', +new Date());
   };
-  const [initValues, setValues] = useState({
-    "config-hook-global": true,
-  });
-  async function init() {
-    let b = {};
-    for (let key in initConfig) {
-      const res = await chromeStorageGet(key);
-      if (!isEmptyObject(res)) b[key] = res[key];
-    }
-    console.log("init", b);
-    setValues(b);
-  }
-  useEffect(function () {
-    // init();
-  }, []);
+  return <Button onClick={change}>{`获取当前时间戳用于固定时间(注意！！！由于固定时间可能会影响到cookie设置，所以请生成一个当前时间戳再行使用)`}</Button>
+}
 
-  function handleChange(value) {
-    for (const key in value) {
-      chrome.storage.local.set({ [key]: value[key] })
-    }
+export default () => {
+  const initConfig = [
+    ["config-hook-global", "是否挂钩总开关"],
+    ["config-hook-Function", "hook-Function"],
+    ["config-hook-eval", "hook-eval（eval函数会记录上下文，若 eval 用到封闭的上下文参数可能报错）"],
+    ["config-hook-remove-dyn-debugger", `remove-dyn-debugger(need selected "hook-Function" or "hook-eval")`],
+    ["config-hook-settimeout", "hook-settimeout"],
+    ["config-hook-setinterval", "hook-setinterval"],
+    ["config-hook-random", "是否启用启用下面四种调试功能（用于固定随机性，便于对比调试）"],
+    ["config-hook-random-freeze", "config-hook-random（让 random 函数固定返回 0.5）"],
+    ["config-hook-random-fake", "config-hook-random（让random 变成伪随机函数。如果已经配置了该伪随机，则会覆盖上面的 0.5）"],
+    ["config-hook-time-freeze", "config-hook-time（时间函数返回的值固定成一个数字）"],
+  ];
+  // 不需要循环渲染的属性
+  const notReviewConfig = [
+    ["config-hook-time-freeze-number"]
+  ]
+  async function handleFormApi(formApi) {
+    for (let [key] of [...initConfig, ...notReviewConfig]) {
+      const res = await chromeStorageGet(key);
+      !isEmptyObject(res) && formApi.setValue(key, res[key]);
+    };
+  };
+
+  async function handleChange(value) {
+    console.group("handleChange");
+    console.log(JSON.stringify(value));
+    console.groupEnd();
+    for (const key in value) await chromeStorageSet(key, value[key]);
   }
-  return <Form initValues={initValues} layout="horizontal" onValueChange={handleChange}>
-    {Object.keys(initConfig).map(key => (<Checkbox field={key} noLabel>{initConfig[key]}</Checkbox>))}
-    {/* <Checkbox field="config-hook-Function" noLabel>hook-Function</Checkbox>
-    <Checkbox field="config-hook-eval" noLabel>hook-eval（eval函数会记录上下文，若 eval 用到封闭的上下文参数可能报错）</Checkbox>
-    <Checkbox field="config-hook-remove-dyn-debugger" noLabel>remove-dyn-debugger(need selected "hook-Function" or "hook-eval")</Checkbox>
-    <Checkbox field="config-hook-settimeout" noLabel>hook-settimeout</Checkbox>
-    <Checkbox field="config-hook-setinterval" noLabel>hook-setinterval</Checkbox> */}
+  return <Form layout="horizontal" onValueChange={handleChange} getFormApi={handleFormApi}>
+    {initConfig.map(([key, value]) => (<Checkbox field={key} noLabel>{value}</Checkbox>))}
+    <Input noLabel field="config-hook-time-freeze-number" disabled />
+    <TimeFreezeNumber />
   </Form>
 }

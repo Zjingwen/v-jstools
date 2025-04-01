@@ -8,6 +8,16 @@ export async function chromeStorageGet(key) {
 }
 
 /**
+ * 设置chrome storage local 数据
+ * @param {string} key
+ * @param {string} value
+ * @returns {Promise}
+ */
+export async function chromeStorageSet(key, value) {
+  return await chrome.storage.local.set({ [key]: value });
+}
+
+/**
  * 判断对象是否为空
  * @param {object} obj
  * @returns {boolean}

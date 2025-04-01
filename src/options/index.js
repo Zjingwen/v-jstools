@@ -69,7 +69,7 @@ document.querySelectorAll("input").forEach(function (v) {
   // 坚挺change变化，如果type是checkbox，则直接赋值，如果是text，则赋值给value
   v.addEventListener("change", function (e) {
     if (v.type == "checkbox") {
-      console.log(e.target.dataset.key, e.target.checked);
+      console.log("checkbox", e.target.dataset.key, e.target.checked);
       chrome.storage.local.set({
         [e.target.dataset.key]: e.target.checked,
       });
@@ -90,6 +90,7 @@ document.querySelectorAll("input").forEach(function (v) {
     }
     // 如果type是text或者password的话直接将value赋值给key
     if (v.type == "text" || v.type == "password") {
+      console.log("text || password", e.target.dataset.key, e.target.value);
       chrome.storage.local.set({
         [e.target.dataset.key]: e.target.value,
       });
@@ -204,6 +205,7 @@ var get_now = document.getElementById("get_now");
 get_now.addEventListener("click", function () {
   var show_now = document.getElementById("show_now");
   show_now.value = +new Date() + "";
+  console.log("时间戳", show_now.dataset.key, show_now.value);
   chrome.storage.local.set({
     [show_now.dataset.key]: show_now.value,
   });
