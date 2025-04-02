@@ -3,16 +3,33 @@ import { chromeStorageGet, chromeStorageSet, isEmptyObject } from "@utils";
 
 const { Checkbox, Input } = Form;
 
-function TimeFreezeNumber() {
+function TimeFreezeNumber(props) {
+  const { field, value } = props;
   const formApi = useFormApi();
   const change = () => {
-    formApi.setValue('config-hook-time-freeze-number', +new Date());
+    formApi.setValue(field, +new Date());
   };
-  return <Button onClick={change}>{`获取当前时间戳用于固定时间(注意！！！由于固定时间可能会影响到cookie设置，所以请生成一个当前时间戳再行使用)`}</Button>
+  return <>
+    <Input noLabel field={field} disabled />
+    <Button onClick={change}>{value}</Button>
+  </>
+}
+
+// 单个checkbox
+function CheckboxCompones(props) {
+  const { field, value } = props;
+  return <Checkbox field={field} noLabel>{value}</Checkbox>
+}
+// 多个checkbox
+function CheckboxsCompones(props) {
+  const { configs } = props;
+  return configs.map(([key, value]) => {
+    return <CheckboxCompones field={key} value={value} />
+  })
 }
 
 export default () => {
-  const initConfig = [
+  const config1 = [
     ["config-hook-global", "是否挂钩总开关"],
     ["config-hook-Function", "hook-Function"],
     ["config-hook-eval", "hook-eval（eval函数会记录上下文，若 eval 用到封闭的上下文参数可能报错）"],
@@ -24,12 +41,12 @@ export default () => {
     ["config-hook-random-fake", "config-hook-random（让random 变成伪随机函数。如果已经配置了该伪随机，则会覆盖上面的 0.5）"],
     ["config-hook-time-freeze", "config-hook-time（时间函数返回的值固定成一个数字）"],
   ];
-  // 不需要循环渲染的属性
-  const notReviewConfig = [
-    ["config-hook-time-freeze-number"]
-  ]
+  const config2 = [
+    ["config-hook-time-freeze-number", "获取当前时间戳用于固定时间"],
+    ["config-hook-time-performance", "config-hook-performance-now（这个时间函数返回的值固定成一个数字）"]
+  ];
   async function handleFormApi(formApi) {
-    for (let [key] of [...initConfig, ...notReviewConfig]) {
+    for (let [key] of [...config1, ...config2]) {
       const res = await chromeStorageGet(key);
       !isEmptyObject(res) && formApi.setValue(key, res[key]);
     };
@@ -42,8 +59,8 @@ export default () => {
     for (const key in value) await chromeStorageSet(key, value[key]);
   }
   return <Form layout="horizontal" onValueChange={handleChange} getFormApi={handleFormApi}>
-    {initConfig.map(([key, value]) => (<Checkbox field={key} noLabel>{value}</Checkbox>))}
-    <Input noLabel field="config-hook-time-freeze-number" disabled />
-    <TimeFreezeNumber />
+    <CheckboxsCompones configs={config1} />
+    <TimeFreezeNumber field={config2[0][0]} value={config2[0][1]} />
+    <CheckboxCompones field={config2[1][0]} value={config2[1][1]} />
   </Form>
 }
