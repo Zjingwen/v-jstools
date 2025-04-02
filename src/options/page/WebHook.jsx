@@ -6,12 +6,19 @@ const { Checkbox, Input } = Form;
 function TimeFreezeNumber(props) {
   const { field, value } = props;
   const formApi = useFormApi();
-  const change = () => {
+  const click = () => {
     formApi.setValue(field, +new Date());
   };
   return <>
     <Input noLabel field={field} disabled />
-    <Button onClick={change}>{value}</Button>
+    <Button onClick={click}>{value}</Button>
+  </>
+}
+
+function CookieMatch(props) {
+  const { field, value } = props;
+  return <>
+    <Input field={field} noLabel />{value}
   </>
 }
 
@@ -43,7 +50,11 @@ export default () => {
   ];
   const config2 = [
     ["config-hook-time-freeze-number", "获取当前时间戳用于固定时间"],
-    ["config-hook-time-performance", "config-hook-performance-now（这个时间函数返回的值固定成一个数字）"]
+    ["config-hook-time-performance", "config-hook-performance-now（这个时间函数返回的值固定成一个数字）"],
+    ["config-hook-log-at", "是否在调试输出时，输出函数触发的地址"],
+    ["config-hook-cookie", "是否对 cookie 进行挂钩调试输出"],
+    ['config-hook-cookie-add-debugger', 'hook-cookie-add-debugger'],
+    ["config-hook-cookie-match", "对匹配字符串的cookie才下断（不设置则为全部都下断）"],
   ];
   async function handleFormApi(formApi) {
     for (let [key] of [...config1, ...config2]) {
@@ -62,5 +73,9 @@ export default () => {
     <CheckboxsCompones configs={config1} />
     <TimeFreezeNumber field={config2[0][0]} value={config2[0][1]} />
     <CheckboxCompones field={config2[1][0]} value={config2[1][1]} />
+    <CheckboxCompones field={config2[2][0]} value={config2[2][1]} />
+    <CheckboxCompones field={config2[3][0]} value={config2[3][1]} />
+    <CheckboxCompones field={config2[4][0]} value={config2[4][1]} />
+    <CookieMatch field={config2[5][0]} value={config2[5][1]} />
   </Form>
 }
