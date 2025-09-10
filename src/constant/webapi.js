@@ -1018,11 +1018,11 @@ export const getsets_1 = [
   [
     "config-hook-ScriptProcessorNode-bufferSize",
     "ScriptProcessorNode-bufferSize",
-  ],
+ ],
 
-  ["config-hook-ScreenOrientation-angle", "ScreenOrientation-angle"],
-  ["config-hook-ScreenOrientation-type", "ScreenOrientation-type"],
-  ["config-hook-ScreenOrientation-onchange", "ScreenOrientation-onchange"],
+ ["config-hook-ScreenOrientation-angle", "ScreenOrientation-angle"],
+ ["config-hook-ScreenOrientation-type", "ScreenOrientation-type"],
+ ["config-hook-ScreenOrientation-onchange", "ScreenOrientation-onchange"],
 
   ["config-hook-SVGViewElement-viewBox", "SVGViewElement-viewBox"],
   [
@@ -1056,10 +1056,13 @@ export const getsets_1 = [
     "SVGTextPositioningElement-rotate",
   ],
 
-  ["SVGTextPathElement", "startOffset"],
-  ["SVGTextPathElement", "method"],
-  ["SVGTextPathElement", "spacing"],
-  ["SVGTextPathElement", "href"],
+  [
+    "config-hook-SVGTextPathElement-startOffset",
+    "SVGTextPathElement-startOffset",
+  ],
+  ["config-hook-SVGTextPathElement-method", "SVGTextPathElement-method"],
+  ["config-hook-SVGTextPathElement-spacing", "SVGTextPathElement-spacing"],
+  ["config-hook-SVGTextPathElement-href", "SVGTextPathElement-href"],
 
   ["SVGTextContentElement", "textLength"],
   ["SVGTextContentElement", "lengthAdjust"],
