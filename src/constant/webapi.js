@@ -1,7 +1,7 @@
 export const getsets_0 = [
-  ["config-hook-hook-Screen-availWidth", "Screen-availWidth"],
-  ["config-hook-hook-Screen-availHeight", "Screen-availHeight"],
-  ["config-hook-hook-Screen-width", "Screen-width"],
+  ["config-hook-Screen-availWidth", "Screen-availWidth"],
+  ["config-hook-Screen-availHeight", "Screen-availHeight"],
+  ["config-hook-Screen-width", "Screen-width"],
   ["config-hook-Screen-height", "Screen-height"],
   ["config-hook-Screen-colorDepth", "Screen-colorDepth"],
   ["config-hook-Screen-pixelDepth", "Screen-pixelDepth"],

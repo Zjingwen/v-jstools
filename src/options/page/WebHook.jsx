@@ -1,4 +1,4 @@
-import { Divider, Space, Button, Form, useFormApi, Row, Col, TreeSelect } from '@douyinfe/semi-ui';
+import { Divider, Space, Button, Form, useFormApi, Row, Col, withFormApi, TreeSelect } from '@douyinfe/semi-ui';
 import { chromeStorageGet, chromeStorageSet, isEmptyObject } from "@utils";
 import { getsets_0, getsets_1, funcs_0, funcs_1 } from '@src/constant/webapi.js';
 import config1 from "@src/constant/config1.js";
@@ -38,7 +38,9 @@ function CheckboxsCompones(props) {
   })
 }
 
-function TreeSelectData(props) {
+
+
+const TreeSelectData = withFormApi(function (props) {
   const { title, data } = props;
   const treeElementData = data.map(function (i) {
     let [value, lable] = i;
@@ -49,7 +51,12 @@ function TreeSelectData(props) {
     return b;
   });
 
+  function handleSelect(selectedKey, selected) {
+    props.formApi.setValue(selectedKey, selected);
+  }
+
   return <TreeSelect
+    onSelect={handleSelect}
     searchPosition="trigger"
     style={{ width: "100%" }}
     dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -58,14 +65,16 @@ function TreeSelectData(props) {
     filterTreeNode
     placeholder={title}
   />
-}
+});
 
 export default () => {
   async function handleFormApi(formApi) {
+    let b = {};
     for (let [key] of [...config1, ...config2, ...getsets_0, ...getsets_1, ...funcs_0, ...funcs_1]) {
       const res = await chromeStorageGet(key);
-      !isEmptyObject(res) && formApi.setValue(key, res[key]);
+      !isEmptyObject(res) && (b[key] = res[key]);
     };
+    formApi.setValues(b);
   };
 
   async function handleChange(value) {
@@ -116,8 +125,8 @@ export default () => {
         <TreeSelectData title='funcs_0' data={funcs_0} />
         <Divider margin='12px' align='left'>getsets_0-选项</Divider>
         <TreeSelectData title='funcs_1' data={funcs_1} />
-        {/* <CheckboxsCompones configs={getsets_0} />
-        <CheckboxsCompones configs={getsets_1} />
+        {/* <CheckboxsCompones configs={getsets_0} /> */}
+        {/* <CheckboxsCompones configs={getsets_1} />
         <CheckboxsCompones configs={funcs_0} />
         <CheckboxsCompones configs={funcs_1} /> */}
       </Col>
