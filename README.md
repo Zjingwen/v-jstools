@@ -8,6 +8,7 @@
 - 添加 vite 构建
 - ~~调整至符合 manifest v3 规范，基础功能可用，暂停了 uglify_es、aline_js~~
 
-# 感谢大佬的开源
+# 感谢大佬们的开源
 
 https://github.com/cilame/v_jstools
+https://github.com/0xsdeo/Hook_JS
