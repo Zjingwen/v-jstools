@@ -74,6 +74,7 @@ export default () => {
       const res = await chromeStorageGet(key);
       !isEmptyObject(res) && (b[key] = res[key]);
     };
+    console.log("handleFormApi", b);
     formApi.setValues(b);
   };
 
